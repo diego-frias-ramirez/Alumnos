@@ -1,50 +1,66 @@
-# Welcome to your Expo app 👋
+# ContadorB – Aplicación Móvil en React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Materia:** Desarrollo de Aplicaciones Móviles  
+**Alumno:** Ferch  
+**Institución:** Universidad Tecnológica de Durango
 
-## Get started
+---
 
-1. Install dependencies
+## Descripción
 
-   ```bash
-   npm install
-   ```
+Aplicación móvil desarrollada con React Native y Expo que implementa un contador digital con funciones de incremento, decremento y reinicio. El contador maneja valores negativos y cambia de color según el estado del valor.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Tecnologías Utilizadas
 
-In the output, you'll find options to open the app in a
+- React Native
+- Expo Go
+- TypeScript
+- Hook `useState` para manejo de estado
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Instalación y Ejecución
 
 ```bash
-npm run reset-project
+# 1. Clonar o descargar el proyecto
+cd ContadorB
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Iniciar el servidor
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Escanear el código QR con la app **Expo Go** desde un dispositivo Android o iOS.
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## Funcionalidades
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+| Botón  | Función                                         |
+| ------ | ----------------------------------------------- |
+| Sumar  | Incrementa el contador en 1                     |
+| Restar | Decrementa el contador en 1 (soporta negativos) |
+| Reset  | Regresa el valor a 0                            |
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## Estructura del Proyecto
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```
+ContadorB/
+├── App.tsx          # Componente principal
+├── app.json         # Configuración de Expo
+├── package.json     # Dependencias
+└── assets/          # Recursos de imagen
+```
+
+---
+
+## Evidencias
+
+Video y código fuente disponibles en:  
+🔗 https://drive.google.com/drive/folders/1KdmeEh90BtVR0y4Nhj12QF3T7laOkhpk?usp=sharing
