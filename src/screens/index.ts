@@ -1,0 +1,5 @@
+export { default as HomeScreen } from './HomeScreen'
+export { default as AgregarScreen } from './AgregarScreen'
+export { default as ConsultarScreen } from './ConsultarScreen'
+export { default as ModificarScreen } from './ModificarScreen'
+export { default as EliminarScreen } from './EliminarScreen'
