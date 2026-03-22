@@ -45,6 +45,16 @@ const initialState: alumnoEstructura = {
     contrasenha: '',
 };
 
+type botonesEstado = {
+    btnGuardar: boolean,
+    btnCancelar: boolean,
+}
+const initialStateBtn: botonesEstado = {
+    btnGuardar: true,
+    btnCancelar: true,
+}
+
+
 const validationSchema = Yup.object().shape({
     matricula: Yup.string().required('La matrícula es obligatoria').matches(/^[0-9]{10}$/i, 'Matrícula inválida'),
     aPaterno: Yup.string().required('Apellido paterno obligatorio'),
@@ -76,6 +86,11 @@ const ModificarScreen = () => {
         aTelefono, aCorreo, aFacebook, aInstagram, tipoSangre, nombreContacto, telefonoContacto } = alumno;
 
     const navigator = useNavigation();
+
+   
+    const handleMatChange = (value: string): void => {
+        setBuscar(value);
+    }
 
     const handleChange = (name: keyof alumnoEstructura, value: string | number) => {
         setAlumno({ ...alumno, [name]: value });
@@ -130,6 +145,23 @@ const ModificarScreen = () => {
         setShow(false);
         setBtnGuardar(true);
         navigator.dispatch(StackActions.popToTop());
+    }
+
+    const notify = (num: number) => {
+        if (num === 200) {
+            Alert.alert('Hecho!', 'Alumno eliminado!');
+            handleCancelar();
+        }
+        if (num === 100) {
+            Alert.alert('No se pudo!', 'Alumno no eliminado!');
+        }
+        if (num === 101) {
+            Alert.alert('No se pudo!', 'No se encontro un Alumno con esa matricula!');
+        }
+    };
+
+    const handleRegresar = () => {
+        navigator.dispatch(StackActions.popToTop());
     };
 
     return (
@@ -141,9 +173,7 @@ const ModificarScreen = () => {
                     style={styles.input}
                     placeholder="Ingresa matrícula a buscar"
                     value={buscar}
-                    onChangeText={(val) => setBuscar(val)}
-                    maxLength={10}
-                    keyboardType="numeric"
+                    onChangeText={(val) => handleMatChange(val)}
                 />
                 <TouchableOpacity style={styles.btnBuscar} onPress={alumnoConsultar}>
                     <Text style={styles.txtBuscar}>Buscar</Text>
@@ -198,7 +228,7 @@ const ModificarScreen = () => {
                     </View>
                 )}
 
-                <TouchableOpacity onPress={handleCancelar} style={styles.boton}>
+                <TouchableOpacity onPress={handleRegresar} style={styles.boton}>
                     <Text style={styles.txtBotonVerde}>Regresar al Home</Text>
                 </TouchableOpacity>
             </ScrollView>

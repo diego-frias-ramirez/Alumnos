@@ -44,7 +44,6 @@ const initialState: alumnoEstructura = {
 };
 
 const EliminarScreen = () => {
-
     const [alumno, setAlumno] = useState<alumnoEstructura>(initialState);
     const [buscar, setBuscar] = useState('');
     const [show, setShow] = useState(false);
@@ -52,6 +51,19 @@ const EliminarScreen = () => {
     const { matricula, aPaterno, aMaterno, nombre, aTelefono, aCorreo, nombreContacto, telefonoContacto } = alumno;
 
     const navigator = useNavigation();
+
+    const notify = (num: number) => {
+        if (num === 200) {
+            Alert.alert('Hecho!', 'Alumno eliminado!');
+            handleCancelar();
+        }
+        if (num === 100) {
+            Alert.alert('No se pudo!', 'Alumno no eliminado!');
+        }
+        if (num === 101) {
+            Alert.alert('No se pudo!', 'No se encontro un Alumno con esa matricula!');
+        }
+    };
 
     const alumnoConsultar = async () => {
         if (buscar === '') {
@@ -75,27 +87,34 @@ const EliminarScreen = () => {
         }
     };
 
-    const handleEliminar = async () => {
-        try {
-            const response = await axios.delete(`http://10.0.2.1:3000/alumnos/eliminar/${matricula}`);
-            if (response.data.status === 200) {
-                Alert.alert('¡Éxito!', 'Alumno eliminado!');
-                setAlumno(initialState);
-                setBuscar('');
-                setShow(false);
-                navigator.dispatch(StackActions.popToTop());
-            } else {
-                Alert.alert('Error', 'No se pudo eliminar el alumno');
-            }
-        } catch (err: any) {
-            Alert.alert('Error', err.message);
-        }
-    };
-
     const handleCancelar = () => {
         setAlumno(initialState);
         setBuscar('');
         setShow(false);
+        navigator.dispatch(StackActions.popToTop());
+    };
+
+    const handleEliminar = async () => {
+        try {
+            // Mantenemos tu lógica de POST a la IP y puerto 5000 como pediste
+            const response = await axios.post('http://10.0.2.2:5000/alumno/eliminar', alumno);
+            
+            if (response.data.result.length > 0) {
+                notify(response.data.status);
+                handleCancelar();
+            } else {
+                notify(response.data.status);
+            }
+        } catch (err: any) {
+            console.log(err);
+            Alert.alert('Error', 'Hubo un fallo en la conexión');
+        }
+    };
+
+    const handleRegresar = () => {
+        setAlumno(initialState);
+        setShow(false);
+        setBuscar(''); // Corregido: antes tenías setMat pero tu estado es 'buscar'
         navigator.dispatch(StackActions.popToTop());
     };
 
@@ -146,7 +165,7 @@ const EliminarScreen = () => {
                     </View>
                 )}
 
-                <TouchableOpacity onPress={handleCancelar} style={styles.boton}>
+                <TouchableOpacity onPress={handleRegresar} style={styles.boton}>
                     <Text style={styles.txtBotonVerde}>Regresar al Home</Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -160,7 +179,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         backgroundColor: '#FFEBEE',
-        marginBottom: 20,
+        paddingBottom: 40,
     },
     title: {
         fontSize: 24,
